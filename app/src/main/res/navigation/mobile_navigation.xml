@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.findmypet_android_ui.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_listView_to_mapview"
+            app:destination="@id/nav_map_view" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -21,5 +25,15 @@
         android:id="@+id/nav_slideshow"
         android:name="com.example.findmypet_android_ui.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow"/>
+
+    <fragment
+        android:id="@+id/nav_map_view"
+        android:name="com.example.findmypet_android_ui.ui.maps.MapsFragment"
+        android:label="Map View"
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapView_to_listview"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

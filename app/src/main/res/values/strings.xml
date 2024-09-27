@@ -12,4 +12,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="report_lost_pet">Report lost pet</string>
     <string name="about_us">About us</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="map_view">Map view</string>
+    <string name="list_view">List view</string>
 </resources>
