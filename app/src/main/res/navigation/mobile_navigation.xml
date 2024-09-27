@@ -21,5 +21,15 @@
         android:id="@+id/nav_slideshow"
         android:name="com.example.findmypet_android_ui.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow"/>
+
+    <fragment
+        android:id="@+id/nav_map_view"
+        android:name="com.example.findmypet_android_ui.ui.maps.MapsFragment"
+        android:label="Map View"
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapView_to_listview"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>
