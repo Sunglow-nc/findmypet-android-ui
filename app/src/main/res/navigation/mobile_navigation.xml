@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.findmypet_android_ui.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_listView_to_mapview"
+            app:destination="@id/nav_map_view" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
