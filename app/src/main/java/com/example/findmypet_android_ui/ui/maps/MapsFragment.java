@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.findmypet_android_ui.R;
+import com.example.findmypet_android_ui.databinding.FragmentMapsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,6 +26,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     private View view;
     private Button listViewButton;
     private NavController navController;
+    private FragmentMapsBinding binding;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -50,7 +52,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_maps, container, false);
+//        view = inflater.inflate(R.layout.fragment_maps, container, false);
+        binding = FragmentMapsBinding.inflate(inflater, container, false);
+        view = binding.getRoot();
         listViewButton = view.findViewById(R.id.listview_button);
         listViewButton.setOnClickListener(this);
         return view;
