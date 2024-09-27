@@ -15,4 +15,11 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="map_view">Map view</string>
     <string name="list_view">List view</string>
+    <string name="pet_name">Pet name</string>
+    <string name="colour">Colour</string>
+    <string name="title">Title</string>
+    <string name="date_last_seen">Date last seen</string>
+    <string name="description_text">Add anything that might help others find your pet</string>
+    <string name="location_last_seen">Select where your pet was last seen:</string>
+    <string name="age">Age</string>
 </resources>
