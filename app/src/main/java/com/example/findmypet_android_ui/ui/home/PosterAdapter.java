@@ -39,6 +39,11 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
     }
 
     public static class PosterViewHolder extends RecyclerView.ViewHolder{
+        PosterLayoutBinding binding;
 
+        public PosterViewHolder(PosterLayoutBinding binding, RecyclerViewInterface recyclerViewInterface) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
     }
 }
