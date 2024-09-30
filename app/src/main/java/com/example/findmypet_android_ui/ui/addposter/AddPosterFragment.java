@@ -21,6 +21,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
 
     private FragmentAddPosterBinding binding;
+    private GoogleMap mapFragment;
+    private View view;
+    private LatLng selectedLocation;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
