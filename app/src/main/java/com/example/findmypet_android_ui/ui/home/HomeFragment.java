@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         view = binding.getRoot();
         mapViewButton = view.findViewById(R.id.mapview_button);
         mapViewButton.setOnClickListener(this);
+        getAllPosters();
         return view;
     }
 
