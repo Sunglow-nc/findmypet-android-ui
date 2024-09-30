@@ -40,7 +40,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
 
     @Override
     public void onBindViewHolder(@NonNull PosterViewHolder holder, int position) {
-
+        holder.binding.setPoster(posterList.get(position));
     }
 
     @Override
