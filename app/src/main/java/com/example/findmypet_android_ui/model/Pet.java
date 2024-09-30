@@ -15,11 +15,11 @@ public class Pet extends BaseObservable {
     private double latitude;
     private String imageURL;
     private String lostDate;
-    private String animalType;
+    private String type;
     private Owner owner;
 
     public Pet(long id, String name, String colour, long age, Boolean isFound, double longitude,
-               double latitude, String imageURL, String lostDate, String animalType, Owner owner) {
+               double latitude, String imageURL, String lostDate, String type, Owner owner) {
         this.id = id;
         this.name = name;
         this.colour = colour;
@@ -29,7 +29,7 @@ public class Pet extends BaseObservable {
         this.latitude = latitude;
         this.imageURL = imageURL;
         this.lostDate = lostDate;
-        this.animalType = animalType;
+        this.type = type;
         this.owner = owner;
     }
 
@@ -82,8 +82,8 @@ public class Pet extends BaseObservable {
     }
 
     @Bindable
-    public String getAnimalType() {
-        return animalType;
+    public String getType() {
+        return type;
     }
 
     @Bindable
@@ -136,8 +136,8 @@ public class Pet extends BaseObservable {
         notifyPropertyChanged(BR.id);
     }
 
-    public void setAnimalType(String animalType) {
-        this.animalType = animalType;
+    public void setType(String type) {
+        this.type = type;
         notifyPropertyChanged(BR.id);
     }
 
