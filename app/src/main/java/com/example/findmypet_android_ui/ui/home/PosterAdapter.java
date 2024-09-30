@@ -1,12 +1,16 @@
 package com.example.findmypet_android_ui.ui.home;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.findmypet_android_ui.R;
+import com.example.findmypet_android_ui.databinding.PosterLayoutBinding;
 import com.example.findmypet_android_ui.model.Poster;
 
 import java.util.List;
@@ -25,7 +29,13 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
     @NonNull
     @Override
     public PosterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        PosterLayoutBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()),
+                R.layout.poster_layout,
+                parent,
+                false
+        );
+        return new PosterViewHolder(binding, recyclerViewInterface);
     }
 
     @Override
