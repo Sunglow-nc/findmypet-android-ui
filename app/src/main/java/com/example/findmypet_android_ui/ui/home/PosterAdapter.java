@@ -2,7 +2,6 @@ package com.example.findmypet_android_ui.ui.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -45,7 +44,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
 
     @Override
     public int getItemCount() {
-        return 0;
+        return posterList.size();
     }
 
     public static class PosterViewHolder extends RecyclerView.ViewHolder{
