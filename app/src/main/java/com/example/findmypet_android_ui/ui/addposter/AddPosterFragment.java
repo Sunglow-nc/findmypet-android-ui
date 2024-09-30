@@ -10,16 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentAddPosterBinding;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class AddPosterFragment extends Fragment {
+public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
 
     private FragmentAddPosterBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         AddPosterViewModel addPosterViewModel =
                 new ViewModelProvider(this).get(AddPosterViewModel.class);
+
 
         binding = FragmentAddPosterBinding.inflate(inflater, container, false);
         view = binding.getRoot();
