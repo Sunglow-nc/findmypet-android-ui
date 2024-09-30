@@ -28,7 +28,7 @@ import com.google.android.gms.maps.MapFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment implements View.OnClickListener, RecyclerViewInterface{
 
     private FragmentHomeBinding binding;
     private View view;
@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private HomeViewModel viewModel;
     private List<Poster> posters;
     private RecyclerView recyclerView;
+    private PosterAdapter posterAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +75,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void displayInRecyclerView(){
-
+        recyclerView = binding.recyclerView;
+        posterAdapter = new PosterAdapter(this, this.getContext(), posters);
+        recyclerView.setAdapter(posterAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        posterAdapter.notifyDataSetChanged();
     }
 
 }
