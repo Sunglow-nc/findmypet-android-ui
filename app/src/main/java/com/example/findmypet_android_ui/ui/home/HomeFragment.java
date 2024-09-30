@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
+        viewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -64,10 +64,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void getAllPosters(){
-        viewModel.getAllPosters().observe(this, new Observer<List<Poster>>() {
+        viewModel.getAllPosters().observe(getViewLifecycleOwner(), new Observer<List<Poster>>() {
             @Override
-            public void onChanged(List<Poster> albumsFromLiveData) {
-                posters = albumsFromLiveData;
+            public void onChanged(List<Poster> postersFromLiveData) {
+                posters = postersFromLiveData;
                 displayInRecyclerView();
             }
         });
