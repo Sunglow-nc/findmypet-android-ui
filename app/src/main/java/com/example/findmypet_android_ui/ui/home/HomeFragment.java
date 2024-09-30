@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.findmypet_android_ui.MainActivity;
 import com.example.findmypet_android_ui.R;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private NavController navController;
     private HomeViewModel viewModel;
     private List<Poster> posters;
+    private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,8 +67,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onChanged(List<Poster> albumsFromLiveData) {
                 posters = albumsFromLiveData;
+                displayInRecyclerView();
             }
         });
+    }
+
+    private void displayInRecyclerView(){
+
     }
 
 }
