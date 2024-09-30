@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -49,4 +48,29 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         super.onDestroyView();
         binding = null;
     }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mapFragment = googleMap;
+
+        // TODO: nice to have: set default location - users current location IF location permission set up
+        // LatLng defaultLocation = new LatLng(-34, 151);
+        // mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
+
+        mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                // Clear prev markers
+                mapFragment.clear();
+
+                // Add marker where user clicks
+                mapFragment.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
+
+                // Save the marker
+                selectedLocation = latLng;
+            }
+        });
+    }
+
 }
