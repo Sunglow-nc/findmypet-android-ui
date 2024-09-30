@@ -11,15 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.findmypet_android_ui.MainActivity;
 import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentHomeBinding;
+import com.example.findmypet_android_ui.model.Poster;
 import com.example.findmypet_android_ui.ui.maps.MapsFragment;
 import com.google.android.gms.maps.MapFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
@@ -27,6 +33,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private View view;
     private Button mapViewButton;
     private NavController navController;
+    private HomeViewModel viewModel;
+    private List<Poster> posters;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,4 +59,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_listView_to_mapview);
     }
+
+    private void getAllPosters(){
+        viewModel.getAllPosters().observe(this, new Observer<List<Poster>>() {
+            @Override
+            public void onChanged(List<Poster> albumsFromLiveData) {
+                posters = albumsFromLiveData;
+            }
+        });
+    }
+
 }
