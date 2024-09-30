@@ -9,7 +9,7 @@
             android:icon="@drawable/pet_home"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_add_poster"
             android:icon="@drawable/megaphone"
             android:title="@string/report_lost_pet" />
         <item

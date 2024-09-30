@@ -16,10 +16,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.findmypet_android_ui.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_add_poster"
+        android:name="com.example.findmypet_android_ui.ui.addposter.AddPosterFragment"
+        android:label="@string/report_lost_pet"
+        tools:layout="@layout/fragment_add_poster" />
 
     <fragment
         android:id="@+id/nav_slideshow"
