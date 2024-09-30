@@ -1,19 +1,20 @@
 package com.example.findmypet_android_ui.ui.home;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+import com.example.findmypet_android_ui.service.PosterRepository;
 
-    private final MutableLiveData<String> mText;
+public class HomeViewModel extends AndroidViewModel {
+    PosterRepository posterRepository;
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
+    public HomeViewModel(@NonNull Application application) {
+        super(application);
+        this.posterRepository = new PosterRepository(application);
     }
 }
