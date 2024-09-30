@@ -7,12 +7,6 @@
         <variable
             name="poster"
             type="com.example.findmypet_android_ui.model.Poster" />
-        <variable
-            name="pet"
-            type="com.example.findmypet_android_ui.model.Pet" />
-        <variable
-            name="owner"
-            type="com.example.findmypet_android_ui.model.Owner" />
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -57,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@{pet.name}"
+            android:text="@{poster.pet.name}"
             android:textAlignment="textStart"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -73,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@{pet.name}"
+            android:text="@{poster.pet.owner.contactNumber}"
             android:textAlignment="textStart"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -82,7 +76,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/pet_name"
-            tools:text="Pet colour" />
+            tools:text="Contact number" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
