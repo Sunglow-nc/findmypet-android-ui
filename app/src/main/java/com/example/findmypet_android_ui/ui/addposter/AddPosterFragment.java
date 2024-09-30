@@ -22,9 +22,15 @@ public class AddPosterFragment extends Fragment {
                 new ViewModelProvider(this).get(AddPosterViewModel.class);
 
         binding = FragmentAddPosterBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        view = binding.getRoot();
 
-        return root;
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+
+
+        return view;
     }
 
     @Override
