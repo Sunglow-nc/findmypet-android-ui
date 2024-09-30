@@ -23,5 +23,7 @@ public class RetrofitInstance {
                     .client(client)
                     .build();
         }
+
+        return retrofit.create(PosterApiService.class);
     }
 }
