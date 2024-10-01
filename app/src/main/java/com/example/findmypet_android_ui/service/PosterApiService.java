@@ -13,6 +13,6 @@ public interface PosterApiService {
     @GET("api/v1/posters")
     Call<List<Poster>> getAllPosters();
 
-    @POST("api/v1/album")
+    @POST("api/v1/posters")
     Call<Poster> addPoster(@Body Poster poster);
 }
