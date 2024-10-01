@@ -22,4 +22,5 @@
     <string name="description_text">Add anything that might help others find your pet</string>
     <string name="location_last_seen">Select where your pet was last seen:</string>
     <string name="age">Age</string>
+    <string name="submit">Submit</string>
 </resources>
