@@ -7,16 +7,17 @@ import androidx.databinding.Bindable;
 
 import com.example.findmypet_android_ui.BR;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Poster extends BaseObservable {
     private long id;
-    private String datePosted;
+    private LocalDate datePosted;
     private String description;
     private String title;
     private Pet pet;
 
-    public Poster(long id, String datePosted, String description, String title, Pet pet) {
+    public Poster(long id, LocalDate datePosted, String description, String title, Pet pet) {
         this.id = id;
         this.datePosted = datePosted;
         this.description = description;
@@ -33,7 +34,7 @@ public class Poster extends BaseObservable {
     }
 
     @Bindable
-    public String getDatePosted() {
+    public LocalDate getDatePosted() {
         return datePosted;
     }
 
@@ -57,7 +58,7 @@ public class Poster extends BaseObservable {
         notifyPropertyChanged(BR.id);
     }
 
-    public void setDatePosted(String datePosted) {
+    public void setDatePosted(LocalDate datePosted) {
         this.datePosted = datePosted;
         notifyPropertyChanged(BR.id);
     }
