@@ -19,7 +19,11 @@
         android:id="@+id/nav_add_poster"
         android:name="com.example.findmypet_android_ui.ui.addposter.AddPosterFragment"
         android:label="@string/report_lost_pet"
-        tools:layout="@layout/fragment_add_poster" />
+        tools:layout="@layout/fragment_add_poster">
+        <action
+            android:id="@+id/action_add_poster_to_home"
+            app:destination="@id/nav_home"/>
+        </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"

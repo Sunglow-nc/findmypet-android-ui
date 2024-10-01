@@ -6,10 +6,10 @@ import androidx.databinding.Bindable;
 import com.example.findmypet_android_ui.BR;
 
 public class Pet extends BaseObservable {
-    private long id;
+    private Long id;
     private String name;
     private String colour;
-    private long age;
+    private Long age;
     private Boolean isFound;
     private double longitude;
     private double latitude;
@@ -18,7 +18,7 @@ public class Pet extends BaseObservable {
     private String type;
     private Owner owner;
 
-    public Pet(long id, String name, String colour, long age, Boolean isFound, double longitude,
+    public Pet(Long id, String name, String colour, Long age, Boolean isFound, double longitude,
                double latitude, String imageURL, String lostDate, String type, Owner owner) {
         this.id = id;
         this.name = name;
@@ -37,7 +37,7 @@ public class Pet extends BaseObservable {
     }
 
     @Bindable
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -52,8 +52,11 @@ public class Pet extends BaseObservable {
     }
 
     @Bindable
-    public long getAge() {
-        return age;
+    public String getAge() {
+        if(age == null){
+            return null;
+        }
+        return age.toString();
     }
 
     @Bindable
@@ -91,7 +94,7 @@ public class Pet extends BaseObservable {
         return owner;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
         notifyPropertyChanged(BR.id);
     }
@@ -106,7 +109,12 @@ public class Pet extends BaseObservable {
         notifyPropertyChanged(BR.id);
     }
 
-    public void setAge(long age) {
+    public void setAge(String age) {
+        this.age = Long.parseLong(age);
+        notifyPropertyChanged(BR.id);
+    }
+
+    public void setAge(Long age) {
         this.age = age;
         notifyPropertyChanged(BR.id);
     }

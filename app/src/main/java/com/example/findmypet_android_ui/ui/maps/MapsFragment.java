@@ -90,7 +90,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 if (map != null && posters != null && !posters.isEmpty()) {
                     Log.d("MapsFragment", "Number of posters: " + posters.size());
                     for (Poster poster : posters) {
-                        Log.d("MapsFragment", "Poster location: " + poster.getPet().getLatitude() + ", " + poster.getPet().getLongitude());
+                        try {
+                            Log.d("MapsFragment", "Poster location: " + poster.getPet().getLatitude() + ", " + poster.getPet().getLongitude());
+                        } catch (NullPointerException e) {
+                            Log.e("null exception", "error has occurred when getting longitude and latitude");
+                        }
                     }
                     addMarkers();
                 } else if (map == null) {

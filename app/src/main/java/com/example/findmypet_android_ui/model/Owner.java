@@ -6,12 +6,12 @@ import androidx.databinding.Bindable;
 import com.example.findmypet_android_ui.BR;
 
 public class Owner extends BaseObservable {
-    private long id;
+    private Long id;
     private String name;
     private String contactNumber;
     private String emailAddress;
 
-    public Owner(long id, String name, String contactNumber, String emailAddress) {
+    public Owner(Long id, String name, String contactNumber, String emailAddress) {
         this.id = id;
         this.name = name;
         this.contactNumber = contactNumber;
@@ -22,7 +22,7 @@ public class Owner extends BaseObservable {
     }
 
     @Bindable
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Owner extends BaseObservable {
         return emailAddress;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
         notifyPropertyChanged(BR.id);
     }
