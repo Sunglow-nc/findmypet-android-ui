@@ -9,7 +9,7 @@ public class Pet extends BaseObservable {
     private long id;
     private String name;
     private String colour;
-    private long age;
+    private Long age;
     private Boolean isFound;
     private double longitude;
     private double latitude;
@@ -18,7 +18,7 @@ public class Pet extends BaseObservable {
     private String type;
     private Owner owner;
 
-    public Pet(long id, String name, String colour, long age, Boolean isFound, double longitude,
+    public Pet(long id, String name, String colour, Long age, Boolean isFound, double longitude,
                double latitude, String imageURL, String lostDate, String type, Owner owner) {
         this.id = id;
         this.name = name;
@@ -52,8 +52,8 @@ public class Pet extends BaseObservable {
     }
 
     @Bindable
-    public long getAge() {
-        return age;
+    public String getAge() {
+        return age.toString();
     }
 
     @Bindable
@@ -106,7 +106,12 @@ public class Pet extends BaseObservable {
         notifyPropertyChanged(BR.id);
     }
 
-    public void setAge(long age) {
+    public void setAge(String age) {
+        this.age = Long.parseLong(age);
+        notifyPropertyChanged(BR.id);
+    }
+
+    public void setAge(Long age) {
         this.age = age;
         notifyPropertyChanged(BR.id);
     }
