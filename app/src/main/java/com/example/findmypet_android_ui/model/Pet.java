@@ -6,7 +6,7 @@ import androidx.databinding.Bindable;
 import com.example.findmypet_android_ui.BR;
 
 public class Pet extends BaseObservable {
-    private long id;
+    private Long id;
     private String name;
     private String colour;
     private Long age;
@@ -18,7 +18,7 @@ public class Pet extends BaseObservable {
     private String type;
     private Owner owner;
 
-    public Pet(long id, String name, String colour, Long age, Boolean isFound, double longitude,
+    public Pet(Long id, String name, String colour, Long age, Boolean isFound, double longitude,
                double latitude, String imageURL, String lostDate, String type, Owner owner) {
         this.id = id;
         this.name = name;
@@ -37,7 +37,7 @@ public class Pet extends BaseObservable {
     }
 
     @Bindable
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -53,6 +53,9 @@ public class Pet extends BaseObservable {
 
     @Bindable
     public String getAge() {
+        if(age == null){
+            return null;
+        }
         return age.toString();
     }
 
@@ -91,7 +94,7 @@ public class Pet extends BaseObservable {
         return owner;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
         notifyPropertyChanged(BR.id);
     }
