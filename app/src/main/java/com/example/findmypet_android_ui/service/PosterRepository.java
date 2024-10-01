@@ -48,7 +48,7 @@ public class PosterRepository {
             @Override
             public void onResponse(Call<Poster> call, Response<Poster> response) {
                 Toast.makeText(application.getApplicationContext(),
-                        response.body().getPet().getName() + " has been posted",
+                        "Lost pet has been posted",
                         Toast.LENGTH_SHORT).show();
             }
 
