@@ -1,7 +1,6 @@
 package com.example.findmypet_android_ui.service;
 
 import android.app.Application;
-import android.media.tv.interactive.AppLinkInfo;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -24,7 +23,7 @@ public class PosterRepository {
 
     public MutableLiveData<List<Poster>> getMutableLiveData(){
         PosterApiService posterApiService = RetrofitInstance.getService();
-        Call<List<Poster>> call = posterApiService.getAllAlbums();
+        Call<List<Poster>> call = posterApiService.getAllPosters();
         call.enqueue(new Callback<List<Poster>>() {
             @Override
             public void onResponse(Call<List<Poster>> call, Response<List<Poster>> response) {
@@ -40,5 +39,25 @@ public class PosterRepository {
             }
         });
         return mutableLiveData;
+    }
+
+    public void addPoster(Poster poster){
+        PosterApiService posterApiService = RetrofitInstance.getService();
+        Call<Poster> call = posterApiService.addPoster(poster);
+        call.enqueue(new Callback<Poster>() {
+            @Override
+            public void onResponse(Call<Poster> call, Response<Poster> response) {
+                Toast.makeText(application.getApplicationContext(),
+                        response.body().getPet().getName() + " has been posted",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Poster> call, Throwable t) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Unable to add this poster",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
