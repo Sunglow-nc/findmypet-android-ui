@@ -10,7 +10,9 @@
         <variable
             name="pet"
             type="com.example.findmypet_android_ui.model.Pet" />
-
+        <variable
+            name="owner"
+            type="com.example.findmypet_android_ui.model.Owner" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,7 +150,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
                     android:hint="Contact name"
-                    android:text="@={pet.owner.name}"
+                    android:text="@={owner.name}"
                     android:textSize="18sp" />
 
                 <EditText
@@ -159,7 +161,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
                     android:hint="Contact number"
-                    android:text="@={pet.owner.contactNumber}"
+                    android:text="@={owner.contactNumber}"
                     android:textSize="18sp" />
 
                 <EditText
@@ -170,7 +172,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
                     android:hint="Contact email address"
-                    android:text="@={pet.owner.emailAddress}"
+                    android:text="@={owner.emailAddress}"
                     android:textSize="18sp" />
 
                 <Button
