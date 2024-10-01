@@ -59,7 +59,6 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         pet = new Pet();
         owner = new Owner();
 
-//        clickHandler = new AddPosterClickHandler(poster, getContext(), viewModel);
         binding.setPoster(poster);
         binding.setPet(pet);
         binding.setOwner(owner);
@@ -70,8 +69,7 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View view) {
                 if(poster.getDescription() == null || poster.getTitle() == null
                         || pet.getColour() == null || pet.getAge() == null
-//                        || pet.getLostDate() == null
-                        || pet.getType() == null
+                        || pet.getLostDate() == null || pet.getType() == null
                         || owner.getName() == null || owner.getEmailAddress() == null
                         || owner.getContactNumber() == null){
                     Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
@@ -88,7 +86,6 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
                 }
             }
         });
-//        binding.setClickHandler(clickHandler);
         return view;
     }
 
@@ -106,8 +103,6 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         // TODO: nice to have: set default location - users current location IF location permission set up
         // LatLng defaultLocation = new LatLng(-34, 151);
         // mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
-
-//        clickHandler.mapLocation(mapFragment);
 
         mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
