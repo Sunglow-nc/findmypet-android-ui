@@ -28,35 +28,4 @@ public class AddPosterClickHandler{
         this.viewModel = viewModel;
     }
 
-    public void submitButton(View view){
-        if(poster.getDescription() == null || poster.getTitle() == null || poster.getPet().getName() == null
-                || poster.getPet().getColour() == null || poster.getPet().getAge() == null
-                || poster.getPet().getLostDate() == null || poster.getPet().getType() == null
-                || poster.getPet().getOwner().getName() == null || poster.getPet().getOwner().getEmailAddress() == null
-                || poster.getPet().getOwner().getContactNumber() == null){
-            Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(context, HomeFragment.class);
-            viewModel.addPoster(poster);
-            context.startActivity(intent);
-        }
-    }
-
-    public void mapLocation(GoogleMap mapFragment) {
-
-        mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                // Clear prev markers
-                mapFragment.clear();
-
-                // Add marker where user clicks
-                mapFragment.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
-
-                // Save the marker
-                poster.getPet().setLatitude(latLng.latitude);
-                poster.getPet().setLongitude(latLng.longitude);
-            }
-        });
-    }
 }
