@@ -54,28 +54,31 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         }
         poster = new Poster();
         pet = new Pet();
-//        owner = new Owner();
+        owner = new Owner();
 
 //        clickHandler = new AddPosterClickHandler(poster, getContext(), viewModel);
-        binding.setLifecycleOwner(this);
         binding.setPoster(poster);
         binding.setPet(pet);
-//        binding.setOwner(owner);
+        binding.setOwner(owner);
 
         submitButton = view.findViewById((R.id.button));
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(poster.getDescription() == null || poster.getTitle() == null || poster.getPet().getName() == null
-                        || poster.getPet().getColour() == null || poster.getPet().getAge() == null
-                        || poster.getPet().getLostDate() == null || poster.getPet().getType() == null
-                        || poster.getPet().getOwner().getName() == null || poster.getPet().getOwner().getEmailAddress() == null
-                        || poster.getPet().getOwner().getContactNumber() == null){
+                if(poster.getDescription() == null || poster.getTitle() == null
+                        || pet.getColour() == null || pet.getAge() == null
+//                        || pet.getLostDate() == null
+                        || pet.getType() == null
+                        || owner.getName() == null || owner.getEmailAddress() == null
+                        || owner.getContactNumber() == null){
                     Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getContext(), HomeFragment.class);
-                    Poster newPoster = new Poster(poster.getId(), LocalDate.now(), poster.getDescription(),
-                            poster.getTitle(), pet);
+                    owner.setId(null);
+                    Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
+                            false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
+                            pet.getLostDate(), pet.getType(), owner);
+                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
+                            poster.getDescription(), poster.getTitle(), newPet);
                     viewModel.addPoster(newPoster);
                     getContext().startActivity(intent);
                 }
@@ -113,8 +116,7 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
 
                 // Save the marker
                 try {
-                    poster.getPet().setLatitude(latLng.latitude);
-                    poster.getPet().setLongitude(latLng.longitude);
+                    selectedLocation = latLng;
                 } catch (NullPointerException e){
                     Log.e("error", "error occurred when trying to save location");
                 }
