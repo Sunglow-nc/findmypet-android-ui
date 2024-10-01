@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentAddPosterBinding;
@@ -41,6 +43,7 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
     private Button submitButton;
     private Pet pet;
     private Owner owner;
+    private NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +83,8 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
                     Poster newPoster = new Poster(null, LocalDate.now().toString(),
                             poster.getDescription(), poster.getTitle(), newPet);
                     viewModel.addPoster(newPoster);
-                    getContext().startActivity(intent);
+                    navController = Navigation.findNavController(view);
+                    navController.navigate(R.id.action_add_poster_to_home);
                 }
             }
         });
