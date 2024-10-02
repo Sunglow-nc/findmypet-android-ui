@@ -3,6 +3,8 @@ package com.example.findmypet_android_ui.ui.updateposter;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -68,9 +70,11 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
         binding.setPet(pet);
         binding.setOwner(owner);
 
-        saveButton = view.findViewById((R.id.saveButton));
+        saveButton = view.findViewById(R.id.saveButton);
+        deleteButton = view.findViewById(R.id.deleteButton);
 
         onClickSaveButton();
+        onClickDeleteButton();
 
         return view;
 
@@ -127,5 +131,20 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
                 }
             }
         });
+    }
+
+    public void onClickDeleteButton(){
+        new AlertDialog.Builder(getContext())
+                .setTitle("Delete poster")
+                .setMessage("Are you sure you want to delete this poster?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // TODO create action update poster to poster detail view:
+                        //  navController.navigate(R.id.action_update_poster_to_home);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }
