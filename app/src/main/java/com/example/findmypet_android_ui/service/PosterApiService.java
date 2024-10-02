@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface PosterApiService {
@@ -20,4 +21,7 @@ public interface PosterApiService {
 
     @DELETE("api/v1/posters/{id}")
     Call<Void> deletePoster(@Path("id") Long id);
+
+    @PUT("api/v1/posters/{id}")
+    Call<Poster> updatePoster(@Path("id") Long id, @Body Poster poster);
 }
