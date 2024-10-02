@@ -11,4 +11,8 @@ public class UpdatePosterViewModel extends ViewModel {
     public void updatePoster(Long id, Poster poster){
         posterRepository.updatePoster(id, poster);
     }
+
+    public void deletePoster(Long id){
+        posterRepository.deletePoster(id);
+    }
 }
