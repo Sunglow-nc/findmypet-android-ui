@@ -26,8 +26,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="123dp"
-            android:layout_height="113dp"
+            android:layout_width="121dp"
+            android:layout_height="96dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,19 +90,6 @@
             app:layout_constraintTop_toBottomOf="@+id/pet_colour"
             tools:text="Type" />
 
-        <TextView
-            android:id="@+id/pet_location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="5dp"
-            android:text="@string/view_on_map"
-            android:textAlignment="textStart"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/pet_type" />
-
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="22dp"
@@ -129,15 +116,6 @@
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/pet_name"
             app:srcCompat="@drawable/palette" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="22dp"
-            android:layout_height="12dp"
-            android:layout_marginTop="3dp"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/pet_type"
-            app:srcCompat="@drawable/location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
