@@ -82,4 +82,25 @@ public class PosterRepository {
             }
         });
     }
+
+    public void updatePoster(Long id, Poster poster){
+        PosterApiService posterApiService = RetrofitInstance.getService();
+        Call<Poster> call = posterApiService.updatePoster(id, poster);
+        call.enqueue(new Callback<Poster>() {
+            @Override
+            public void onResponse(Call<Poster> call, Response<Poster> response) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Poster has been updated",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Poster> call, Throwable t) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Unable to update poster",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("PUT REQUEST", t.getMessage());
+            }
+        });
+    }
 }
