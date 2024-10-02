@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.addposter.AddPosterFragment">
 
-        <ScrollView
+        <com.example.findmypet_android_ui.ui.util.CustomScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -39,6 +39,7 @@
                     android:hint="@string/title"
                     android:text="@={poster.title}"
                     android:textSize="18sp"
+                    android:background="@drawable/edit_text_styling"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="parent"
@@ -53,11 +54,11 @@
                     android:hint="@string/pet_name"
                     android:text="@={pet.name}"
                     android:textSize="18sp"
+                    android:background="@drawable/edit_text_styling"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/pet_title"
                     android:layout_marginTop="15dp" />
-
 
                 <EditText
                     android:id="@+id/date_last_seen"
@@ -66,64 +67,12 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
+                    android:background="@drawable/edit_text_styling"
                     android:hint="@string/date_last_seen"
                     android:text="@={pet.LostDate}"
                     android:inputType="date"
                     android:textSize="18sp" />
                 <!--            need to implement date picker dialog in the add poster fragment-->
-
-                <EditText
-                    android:id="@+id/pet_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="30dp"
-                    android:hint="Pet type"
-                    android:text="@={pet.type}"
-                    android:textSize="18sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/pet_colour"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="30dp"
-                        android:hint="@string/colour"
-                        android:text="@={pet.colour}"
-                        android:textSize="18sp"
-                        android:layout_marginTop="15dp" />
-
-                    <EditText
-                        android:id="@+id/age"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
-                        android:hint="@string/age"
-                        android:text="@={pet.age}"
-                        android:textSize="18sp"
-                        android:inputType="number"
-                        android:layout_marginTop="15dp" />
-
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="30dp"
-                    android:hint="@string/description_text"
-                    android:text="@={poster.description}"
-                    android:textSize="18sp"
-                    android:inputType="textMultiLine" />
 
                 <TextView
                     android:id="@+id/location"
@@ -140,7 +89,75 @@
                     android:id="@+id/map"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="300dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"/>
+                <EditText
+                    android:id="@+id/pet_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="30dp"
+                    android:hint="Pet type"
+                    android:background="@drawable/edit_text_styling"
+                    android:text="@={pet.type}"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/pet_colour"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:hint="@string/colour"
+                        android:background="@drawable/edit_text_styling"
+                        android:text="@={pet.colour}"
+                        android:textSize="18sp"
+                        android:layout_marginTop="15dp" />
+
+                    <EditText
+                        android:id="@+id/age"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:hint="@string/age"
+                        android:text="@={pet.age}"
+                        android:background="@drawable/edit_text_styling"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:layout_marginTop="15dp" />
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="30dp"
+                    android:hint="@string/description_text"
+                    android:text="@={poster.description}"
+                    android:background="@drawable/edit_text_styling"
+                    android:textSize="18sp"
+                    android:inputType="textMultiLine" />
+
+                <TextView
+                    android:id="@+id/contact_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="15dp"
+                    android:textSize="18sp"
+                    android:text="@string/contact_details"/>
 
                 <EditText
                     android:id="@+id/contact_name"
@@ -149,7 +166,8 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
-                    android:hint="Contact name"
+                    android:hint="@string/contact_name"
+                    android:background="@drawable/edit_text_styling"
                     android:text="@={owner.name}"
                     android:textSize="18sp" />
 
@@ -160,7 +178,8 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
-                    android:hint="Contact number"
+                    android:hint="@string/contact_number"
+                    android:background="@drawable/edit_text_styling"
                     android:text="@={owner.contactNumber}"
                     android:textSize="18sp" />
 
@@ -171,7 +190,8 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
-                    android:hint="Contact email address"
+                    android:hint="@string/contact_email_address"
+                    android:background="@drawable/edit_text_styling"
                     android:text="@={owner.emailAddress}"
                     android:textSize="18sp" />
 
@@ -179,9 +199,14 @@
                     android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/submit" />
+                    android:text="@string/submit"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="15dp"/>
 
             </LinearLayout>
-        </ScrollView>
+        </com.example.findmypet_android_ui.ui.util.CustomScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
