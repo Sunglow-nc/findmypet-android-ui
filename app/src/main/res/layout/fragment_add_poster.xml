@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.addposter.AddPosterFragment">
 
-        <ScrollView
+        <com.example.findmypet_android_ui.ui.util.CustomScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -207,6 +207,6 @@
                     android:layout_marginTop="15dp"/>
 
             </LinearLayout>
-        </ScrollView>
+        </com.example.findmypet_android_ui.ui.util.CustomScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
