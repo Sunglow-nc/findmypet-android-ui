@@ -1,6 +1,7 @@
 package com.example.findmypet_android_ui.service;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -57,6 +58,27 @@ public class PosterRepository {
                 Toast.makeText(application.getApplicationContext(),
                         "Unable to add this poster",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void deletePoster(Long id){
+        PosterApiService posterApiService = RetrofitInstance.getService();
+        Call<Void> call = posterApiService.deletePoster(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Poster successfully deleted",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Unable to delete poster",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("DELETE REQUEST", t.getMessage());
             }
         });
     }
