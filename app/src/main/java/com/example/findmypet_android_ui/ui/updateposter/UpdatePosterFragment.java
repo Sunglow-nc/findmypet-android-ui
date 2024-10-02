@@ -69,29 +69,8 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
         binding.setOwner(owner);
 
         saveButton = view.findViewById((R.id.saveButton));
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(poster.getDescription() == null || poster.getTitle() == null
-                        || pet.getColour() == null || pet.getAge() == null
-                        || pet.getLostDate() == null || pet.getType() == null
-                        || owner.getName() == null || owner.getEmailAddress() == null
-                        || owner.getContactNumber() == null){
-                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    owner.setId(null);
-                    Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
-                            false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
-                            pet.getLostDate(), pet.getType(), owner);
-                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
-                            poster.getDescription(), poster.getTitle(), newPet);
-                    viewModel.updatePoster(newPoster.getId(), newPoster);
-                    navController = Navigation.findNavController(view);
-                    // TODO create action update poster to poster detail view:
-                    //  navController.navigate(R.id.action_update_poster_to_home);
-                }
-            }
-        });
+
+        onClickSaveButton();
 
         return view;
 
@@ -119,6 +98,32 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
                     selectedLocation = latLng;
                 } catch (NullPointerException e){
                     Log.e("error", "error occurred when trying to save location");
+                }
+            }
+        });
+    }
+
+    public void onClickSaveButton(){
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(poster.getDescription() == null || poster.getTitle() == null
+                        || pet.getColour() == null || pet.getAge() == null
+                        || pet.getLostDate() == null || pet.getType() == null
+                        || owner.getName() == null || owner.getEmailAddress() == null
+                        || owner.getContactNumber() == null){
+                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    owner.setId(null);
+                    Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
+                            false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
+                            pet.getLostDate(), pet.getType(), owner);
+                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
+                            poster.getDescription(), poster.getTitle(), newPet);
+                    viewModel.updatePoster(newPoster.getId(), newPoster);
+                    navController = Navigation.findNavController(view);
+                    // TODO create action update poster to poster detail view:
+                    //  navController.navigate(R.id.action_update_poster_to_home);
                 }
             }
         });
