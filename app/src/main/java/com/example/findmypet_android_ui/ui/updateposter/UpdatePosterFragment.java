@@ -8,11 +8,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentAddPosterBinding;
@@ -35,8 +38,9 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
     private Owner owner;
     private GoogleMap mapFragment;
     private LatLng selectedLocation;
-    private Button updateButton;
+    private Button saveButton;
     private Button deleteButton;
+    private NavController navController;
 
     public static UpdatePosterFragment newInstance() {
         return new UpdatePosterFragment();
@@ -59,6 +63,32 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
         binding.setPoster(poster);
         binding.setPet(pet);
         binding.setOwner(owner);
+
+        saveButton = view.findViewById((R.id.saveButton));
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(poster.getDescription() == null || poster.getTitle() == null
+                        || pet.getColour() == null || pet.getAge() == null
+                        || pet.getLostDate() == null || pet.getType() == null
+                        || owner.getName() == null || owner.getEmailAddress() == null
+                        || owner.getContactNumber() == null){
+                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    owner.setId(null);
+                    Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
+                            false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
+                            pet.getLostDate(), pet.getType(), owner);
+                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
+                            poster.getDescription(), poster.getTitle(), newPet);
+                    viewModel.updatePoster(newPoster.getId(), newPoster);
+                    navController = Navigation.findNavController(view);
+                    // TODO create action update poster to poster detail view:
+                    //  navController.navigate(R.id.action_update_poster_to_home);
+                }
+            }
+        });
+
         return view;
 
     }
