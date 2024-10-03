@@ -16,4 +16,8 @@ public class DataValidation {
         Matcher matcher = validPhoneNumber.matcher(email);
         return matcher.find();
     }
+
+    public static boolean isValidName(String name){
+        return name.length() > 1;
+    }
 }
