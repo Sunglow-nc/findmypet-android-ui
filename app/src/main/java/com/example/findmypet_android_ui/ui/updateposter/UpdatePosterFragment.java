@@ -2,6 +2,7 @@ package com.example.findmypet_android_ui.ui.updateposter;
 
 import static com.example.findmypet_android_ui.ui.util.DataValidation.isUKNumber;
 import static com.example.findmypet_android_ui.ui.util.DataValidation.isValidEmail;
+import static com.example.findmypet_android_ui.ui.util.DataValidation.isValidName;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -123,12 +124,12 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
                     toast("Please enter a valid email address");
                 } else if(owner.getName() == null || !isValidName(owner.getName())){
                     toast("Name must be 2 characters or more");
-                }
-                if(poster.getDescription() == null || poster.getTitle() == null
+                } else if(selectedLocation == null){
+                    toast("Please select the location your pet was last seen");
+                }else if(poster.getDescription() == null
                         || pet.getColour() == null || pet.getAge() == null
                         || pet.getLostDate() == null || pet.getType() == null
-                        || owner.getName() == null || owner.getEmailAddress() == null
-                        || owner.getContactNumber() == null){
+                        || pet.getName() == null){
                     toast("Fields cannot be empty");
                 } else {
                     owner.setId(null);
