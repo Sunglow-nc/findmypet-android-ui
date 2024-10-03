@@ -53,6 +53,14 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
         public PosterViewHolder(PosterLayoutBinding binding, RecyclerViewInterface recyclerViewInterface) {
             super(binding.getRoot());
             this.binding = binding;
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    recyclerViewInterface.onItemClick(position);
+                }
+            });
         }
     }
+
 }

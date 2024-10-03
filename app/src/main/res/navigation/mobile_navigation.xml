@@ -10,9 +10,15 @@
         android:name="com.example.findmypet_android_ui.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
+        <argument
+            android:name="poster"
+            app:argType="com.example.findmypet_android_ui.model.Poster" />
         <action
             android:id="@+id/action_listView_to_mapview"
             app:destination="@id/nav_map_view" />
+        <action
+            android:id="@+id/action_detail_page"
+            app:destination="@id/nav_details_page" />
     </fragment>
 
     <fragment
@@ -22,14 +28,14 @@
         tools:layout="@layout/fragment_add_poster">
         <action
             android:id="@+id/action_add_poster_to_home"
-            app:destination="@id/nav_home"/>
-        </fragment>
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.findmypet_android_ui.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow"/>
+        tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_map_view"
@@ -48,4 +54,12 @@
             android:name="poster"
             app:argType="com.example.findmypet_android_ui.model.Poster" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_details_page"
+        android:name="com.example.findmypet_android_ui.ui.details.DetailsPage">
+    <argument
+        android:name="poster"
+        app:argType="com.example.findmypet_android_ui.model.Poster" />
+    </fragment>
+
 </navigation>
