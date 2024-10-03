@@ -1,16 +1,16 @@
-package com.example.findmypet_android_ui.ui.slideshow;
+package com.example.findmypet_android_ui.ui.aboutus;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class AboutUsViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public AboutUsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is aboutus fragment");
     }
 
     public LiveData<String> getText() {
