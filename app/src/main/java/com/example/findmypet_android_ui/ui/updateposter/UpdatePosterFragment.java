@@ -62,9 +62,13 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-        poster = new Poster();
-        pet = new Pet();
-        owner = new Owner();
+
+        //need to create a Bundle and set the poster: bundle.putParcelable("poster", poster);
+        // then  NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        // navController.navigate(R.id.nav_add_poster, bundle);
+        poster = UpdatePosterFragmentArgs.fromBundle(getArguments()).getPoster();
+        pet = poster.getPet();
+        owner = pet.getOwner();
 
         binding.setPoster(poster);
         binding.setPet(pet);
@@ -122,7 +126,7 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
                     Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
                             false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
                             pet.getLostDate(), pet.getType(), owner);
-                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
+                    Poster newPoster = new Poster(null, poster.getDatePosted(),
                             poster.getDescription(), poster.getTitle(), newPet);
                     viewModel.updatePoster(newPoster.getId(), newPoster);
                     navController = Navigation.findNavController(view);
