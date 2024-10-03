@@ -46,6 +46,6 @@
         android:name="com.example.findmypet_android_ui.ui.updateposter.UpdatePosterFragment">
         <argument
             android:name="poster"
-            app:argType="com.example.app.Poster" />
+            app:argType="com.example.findmypet_android_ui.model.Poster" />
     </fragment>
 </navigation>
