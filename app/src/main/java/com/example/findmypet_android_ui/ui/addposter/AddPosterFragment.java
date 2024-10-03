@@ -1,35 +1,46 @@
 package com.example.findmypet_android_ui.ui.addposter;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
-
+import com.bumptech.glide.Glide;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentAddPosterBinding;
 import com.example.findmypet_android_ui.model.Owner;
 import com.example.findmypet_android_ui.model.Pet;
 import com.example.findmypet_android_ui.model.Poster;
+import com.example.findmypet_android_ui.service.PosterApiService;
+import com.example.findmypet_android_ui.service.RetrofitInstance;
 import com.example.findmypet_android_ui.ui.home.HomeFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
 
@@ -40,11 +51,12 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
     private AddPosterClickHandler clickHandler;
     private Poster poster;
     private AddPosterViewModel viewModel;
-    private Button submitButton;
     private Pet pet;
     private Owner owner;
-    private NavController navController;
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -58,34 +70,29 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         poster = new Poster();
         pet = new Pet();
         owner = new Owner();
+        clickHandler = new AddPosterClickHandler(poster, pet, owner, getContext(), viewModel);
 
         binding.setPoster(poster);
         binding.setPet(pet);
         binding.setOwner(owner);
+        binding.setClickHandler(clickHandler);
 
-        submitButton = view.findViewById((R.id.button));
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(poster.getDescription() == null || poster.getTitle() == null
-                        || pet.getColour() == null || pet.getAge() == null
-                        || pet.getLostDate() == null || pet.getType() == null
-                        || owner.getName() == null || owner.getEmailAddress() == null
-                        || owner.getContactNumber() == null){
-                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    owner.setId(null);
-                    Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
-                            false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
-                            pet.getLostDate(), pet.getType(), owner);
-                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
-                            poster.getDescription(), poster.getTitle(), newPet);
-                    viewModel.addPoster(newPoster);
-                    navController = Navigation.findNavController(view);
-                    navController.navigate(R.id.action_add_poster_to_home);
-                }
-            }
-        });
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
+                        Uri selectedImageUri = result.getData().getData();
+                        if (selectedImageUri != null) {
+                            String fileName = getFileName(selectedImageUri);
+                            binding.fileNameTextView.setText(fileName != null ? fileName : "File Name Unavailable");
+                            binding.uploadImageButton.setText("Image Selected");
+                            uploadImage(selectedImageUri);
+                        }
+                    }
+                });
+
+        clickHandler.setImagePickerLauncher(imagePickerLauncher);
+
         return view;
     }
 
@@ -122,5 +129,107 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
+
+
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (nameIndex >= 0) {
+                        result = cursor.getString(nameIndex);
+                    }
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    private void uploadImage(Uri selectedImageUri) {
+        try {
+            InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImageUri);
+            byte[] bytes = getBytes(inputStream);
+
+            RequestBody requestFile = RequestBody.create(
+                    MediaType.parse(getContext().getContentResolver().getType(selectedImageUri)), bytes
+            );
+
+            MultipartBody.Part body = MultipartBody.Part.createFormData(
+                    "file", getFileName(selectedImageUri), requestFile
+            );
+
+            PosterApiService service = RetrofitInstance.getService();
+            Call<ResponseBody> call = service.uploadImage(body);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            String imageUrl = response.body().string();
+                            pet.setImageURL(imageUrl);
+
+                            Toast.makeText(getContext(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                            Glide.with(getContext())
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.ic_upload_placeholder)
+                                    .error(R.drawable.error_image)
+                                    .into(binding.imagePreview);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Failed to read response", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Toast.makeText(getContext(), "Image upload failed: " + errorBody, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(getContext(), "Image upload failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Failed to read image data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
 }
