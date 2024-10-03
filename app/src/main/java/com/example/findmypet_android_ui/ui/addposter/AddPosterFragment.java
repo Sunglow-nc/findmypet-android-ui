@@ -110,24 +110,7 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         // TODO: nice to have: set default location - users current location IF location permission set up
         // LatLng defaultLocation = new LatLng(-34, 151);
         // mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
-
-        mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                // Clear prev markers
-                mapFragment.clear();
-
-                // Add marker where user clicks
-                mapFragment.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
-
-                // Save the marker
-                try {
-                    selectedLocation = latLng;
-                } catch (NullPointerException e){
-                    Log.e("error", "error occurred when trying to save location");
-                }
-            }
-        });
+        clickHandler.mapClick(mapFragment);
     }
 
 
@@ -229,7 +212,5 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
             Toast.makeText(getContext(), "Failed to read image data", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 }
