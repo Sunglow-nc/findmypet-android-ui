@@ -1,11 +1,15 @@
 package com.example.findmypet_android_ui.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.example.findmypet_android_ui.BR;
 
-public class Pet extends BaseObservable {
+public class Pet extends BaseObservable implements Parcelable {
     private Long id;
     private String name;
     private String colour;
@@ -35,6 +39,41 @@ public class Pet extends BaseObservable {
 
     public Pet() {
     }
+
+    protected Pet(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        name = in.readString();
+        colour = in.readString();
+        if (in.readByte() == 0) {
+            age = null;
+        } else {
+            age = in.readLong();
+        }
+        byte tmpIsFound = in.readByte();
+        isFound = tmpIsFound == 0 ? null : tmpIsFound == 1;
+        longitude = in.readDouble();
+        latitude = in.readDouble();
+        imageURL = in.readString();
+        lostDate = in.readString();
+        type = in.readString();
+        owner = in.readParcelable(Owner.class.getClassLoader());
+    }
+
+    public static final Creator<Pet> CREATOR = new Creator<Pet>() {
+        @Override
+        public Pet createFromParcel(Parcel in) {
+            return new Pet(in);
+        }
+
+        @Override
+        public Pet[] newArray(int size) {
+            return new Pet[size];
+        }
+    };
 
     @Bindable
     public Long getId() {
@@ -152,5 +191,35 @@ public class Pet extends BaseObservable {
     public void setOwner(Owner owner) {
         this.owner = owner;
         notifyPropertyChanged(BR.id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeString(name);
+        parcel.writeString(colour);
+        if (age == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(age);
+        }
+        parcel.writeByte((byte) (isFound == null ? 0 : isFound ? 1 : 2));
+        parcel.writeDouble(longitude);
+        parcel.writeDouble(latitude);
+        parcel.writeString(imageURL);
+        parcel.writeString(lostDate);
+        parcel.writeString(type);
+        parcel.writeParcelable(owner, i);
     }
 }
