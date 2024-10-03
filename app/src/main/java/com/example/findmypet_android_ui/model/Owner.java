@@ -1,11 +1,15 @@
 package com.example.findmypet_android_ui.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.example.findmypet_android_ui.BR;
 
-public class Owner extends BaseObservable {
+public class Owner extends BaseObservable implements Parcelable {
     private Long id;
     private String name;
     private String contactNumber;
@@ -20,6 +24,29 @@ public class Owner extends BaseObservable {
 
     public Owner() {
     }
+
+    protected Owner(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        name = in.readString();
+        contactNumber = in.readString();
+        emailAddress = in.readString();
+    }
+
+    public static final Creator<Owner> CREATOR = new Creator<Owner>() {
+        @Override
+        public Owner createFromParcel(Parcel in) {
+            return new Owner(in);
+        }
+
+        @Override
+        public Owner[] newArray(int size) {
+            return new Owner[size];
+        }
+    };
 
     @Bindable
     public Long getId() {
@@ -59,5 +86,23 @@ public class Owner extends BaseObservable {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
         notifyPropertyChanged(BR.id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeString(name);
+        parcel.writeString(contactNumber);
+        parcel.writeString(emailAddress);
     }
 }
