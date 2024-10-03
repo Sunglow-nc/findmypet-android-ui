@@ -122,7 +122,7 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
                     Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
                             false, selectedLocation.longitude, selectedLocation.latitude, pet.getImageURL(),
                             pet.getLostDate(), pet.getType(), owner);
-                    Poster newPoster = new Poster(null, LocalDate.now().toString(),
+                    Poster newPoster = new Poster(null, poster.getDatePosted(),
                             poster.getDescription(), poster.getTitle(), newPet);
                     viewModel.updatePoster(newPoster.getId(), newPoster);
                     navController = Navigation.findNavController(view);
