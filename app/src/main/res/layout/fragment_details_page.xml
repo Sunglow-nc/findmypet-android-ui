@@ -7,6 +7,12 @@
         <variable
             name="poster"
             type="com.example.findmypet_android_ui.model.Poster" />
+        <variable
+            name="pet"
+            type="com.example.findmypet_android_ui.model.Pet" />
+        <variable
+            name="owner"
+            type="com.example.findmypet_android_ui.model.Owner" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +28,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="96dp"
             android:layout_marginEnd="5dp"
+            app:imageUrl="@{poster.pet.imageURL}"
             app:layout_constraintEnd_toStartOf="@+id/contact_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -113,6 +120,19 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="305dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="12dp"
+
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
