@@ -102,8 +102,7 @@ public class UpdatePosterClickHandlers {
 
             Toast.makeText(context, "Poster updated successfully!", Toast.LENGTH_SHORT).show();
             navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_add_poster_to_home);
-        }
+            navController.navigate(R.id.action_update_to_home);        }
     }
 
     public void onDeleteButtonClicked(View view) {
