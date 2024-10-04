@@ -9,7 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_aboutus">About us</string>
     <string name="report_lost_pet">Report lost pet</string>
     <string name="about_us">About us</string>
     <string name="title_activity_maps">MapsActivity</string>
