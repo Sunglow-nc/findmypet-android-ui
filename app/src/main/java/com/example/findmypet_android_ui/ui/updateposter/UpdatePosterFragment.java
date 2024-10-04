@@ -34,6 +34,7 @@ import com.example.findmypet_android_ui.model.Pet;
 import com.example.findmypet_android_ui.model.Poster;
 import com.example.findmypet_android_ui.service.PosterApiService;
 import com.example.findmypet_android_ui.service.RetrofitInstance;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -116,10 +117,9 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapFragment = googleMap;
-
-        // TODO: nice to have: set default location - users current location IF location permission set up
-        // LatLng defaultLocation = new LatLng(-34, 151);
-        // mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
+        LatLng location = new LatLng(pet.getLatitude(), pet.getLongitude());
+        mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
+        mapFragment.addMarker(new MarkerOptions().position(location).title(poster.getTitle()));
         clickHandlers.mapClick(mapFragment);
     }
 
