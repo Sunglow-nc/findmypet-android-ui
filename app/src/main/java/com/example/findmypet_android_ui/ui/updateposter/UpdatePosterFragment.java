@@ -123,32 +123,6 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
         clickHandlers.mapClick(mapFragment);
     }
 
-//    @Override
-//    public void onMapReady(@NonNull GoogleMap googleMap) {
-//        mapFragment = googleMap;
-//
-//        // TODO: nice to have: set default location - users current location IF location permission set up
-//        // LatLng defaultLocation = new LatLng(-34, 151);
-//        // mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
-//
-//        mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//            @Override
-//            public void onMapClick(LatLng latLng) {
-//                // Clear prev markers
-//                mapFragment.clear();
-//
-//                // Add marker where user clicks
-//                mapFragment.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
-//
-//                // Save the marker
-//                try {
-//                    selectedLocation = latLng;
-//                } catch (NullPointerException e){
-//                    Log.e("error", "error occurred when trying to save location");
-//                }
-//            }
-//        });
-//    }
 
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
