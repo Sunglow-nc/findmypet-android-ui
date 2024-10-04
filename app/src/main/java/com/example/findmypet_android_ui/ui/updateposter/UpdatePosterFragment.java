@@ -25,7 +25,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.findmypet_android_ui.R;
-import com.example.findmypet_android_ui.databinding.FragmentAddPosterBinding;
+import com.example.findmypet_android_ui.databinding.FragmentUpdatePosterBinding;
 import com.example.findmypet_android_ui.model.Owner;
 import com.example.findmypet_android_ui.model.Pet;
 import com.example.findmypet_android_ui.model.Poster;
@@ -38,7 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback {
 
     private UpdatePosterViewModel viewModel;
-    private FragmentAddPosterBinding binding;
+    private FragmentUpdatePosterBinding binding;
     private View view;
     private Poster poster;
     private Pet pet;
