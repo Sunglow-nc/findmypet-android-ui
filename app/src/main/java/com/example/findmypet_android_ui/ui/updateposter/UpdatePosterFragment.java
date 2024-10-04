@@ -1,5 +1,9 @@
 package com.example.findmypet_android_ui.ui.updateposter;
 
+import static com.example.findmypet_android_ui.ui.util.DataValidation.isUKNumber;
+import static com.example.findmypet_android_ui.ui.util.DataValidation.isValidEmail;
+import static com.example.findmypet_android_ui.ui.util.DataValidation.isValidName;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,23 +25,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.findmypet_android_ui.R;
-import com.example.findmypet_android_ui.databinding.FragmentAddPosterBinding;
+import com.example.findmypet_android_ui.databinding.FragmentUpdatePosterBinding;
 import com.example.findmypet_android_ui.model.Owner;
 import com.example.findmypet_android_ui.model.Pet;
 import com.example.findmypet_android_ui.model.Poster;
-import com.example.findmypet_android_ui.ui.home.HomeViewModel;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.time.LocalDate;
-
 public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback {
 
     private UpdatePosterViewModel viewModel;
-    private FragmentAddPosterBinding binding;
+    private FragmentUpdatePosterBinding binding;
     private View view;
     private Poster poster;
     private Pet pet;
@@ -115,12 +116,21 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(poster.getDescription() == null || poster.getTitle() == null
+                if(poster.getTitle() == null || poster.getTitle().length() < 5){
+                    toast("Title must be 5 characters or more");
+                } else if(owner.getContactNumber() == null || !isUKNumber(owner.getContactNumber())){
+                    toast("Please enter a valid UK phone number");
+                } else if(owner.getEmailAddress() == null || !isValidEmail(owner.getEmailAddress())){
+                    toast("Please enter a valid email address");
+                } else if(owner.getName() == null || !isValidName(owner.getName())){
+                    toast("Name must be 2 characters or more");
+                } else if(selectedLocation == null){
+                    toast("Please select the location your pet was last seen");
+                }else if(poster.getDescription() == null
                         || pet.getColour() == null || pet.getAge() == null
                         || pet.getLostDate() == null || pet.getType() == null
-                        || owner.getName() == null || owner.getEmailAddress() == null
-                        || owner.getContactNumber() == null){
-                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                        || pet.getName() == null){
+                    toast("Fields cannot be empty");
                 } else {
                     owner.setId(null);
                     Pet newPet = new Pet(null, pet.getName(), pet.getColour(), Long.parseLong(pet.getAge()),
@@ -150,5 +160,10 @@ public class UpdatePosterFragment extends Fragment implements OnMapReadyCallback
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    public void toast(String text){
+        Toast.makeText(getContext(), text,
+                Toast.LENGTH_SHORT).show();
     }
 }
