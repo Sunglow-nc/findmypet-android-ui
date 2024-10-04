@@ -52,7 +52,7 @@
         android:name="com.example.findmypet_android_ui.ui.updateposter.UpdatePosterFragment">
         <action
             android:id="@+id/action_update_to_home"
-            app:destination="@+id/nav_add_poster">
+            app:destination="@+id/nav_home">
 
         </action>
         <argument
