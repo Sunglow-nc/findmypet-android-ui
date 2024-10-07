@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="poster"
             type="com.example.findmypet_android_ui.model.Poster" />
@@ -50,7 +51,7 @@
                     android:hint="Title..."
                     android:text='@{poster.title}'
                     android:textAlignment="center"
-                    android:textColor="#DC1E47"
+                    android:textColor="@color/design_default_color_primary_dark"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -68,7 +69,7 @@
                         android:layout_columnWeight="1"
                         android:padding="8dp"
                         android:text="Name: "
-                        android:textColor="#FF6347"
+                        android:textColor="#4949F4"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -89,7 +90,7 @@
                         android:layout_columnWeight="1"
                         android:padding="8dp"
                         android:text="Type: "
-                        android:textColor="#FF6347"
+                        android:textColor="#4949F4"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -110,7 +111,7 @@
                         android:layout_columnWeight="1"
                         android:padding="8dp"
                         android:text="Age: "
-                        android:textColor="#FF6347"
+                        android:textColor="#4949F4"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -131,7 +132,7 @@
                         android:layout_columnWeight="1"
                         android:padding="8dp"
                         android:text="Colour: "
-                        android:textColor="#FF6347"
+                        android:textColor="#4949F4"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -152,7 +153,7 @@
                         android:layout_columnWeight="1"
                         android:padding="8dp"
                         android:text="Lost Date: "
-                        android:textColor="#FF6347"
+                        android:textColor="#4949F4"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -170,46 +171,97 @@
 
                 <TextView
                     android:id="@+id/owner_label"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Owner Information:"
-                    android:textColor="#FF6347"
+                    android:text="Owner Information"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_primary_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/owner_name"
-                    android:layout_width="wrap_content"
+                <GridLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text='@{"Owner: " + poster.pet.owner.name}'
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="16dp"
+                    android:columnCount="2"
+                    android:rowCount="3">
 
-                <TextView
-                    android:id="@+id/owner_contact_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{"Phone: " + poster.pet.owner.contactNumber}'
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/owner_name_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Owner: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/owner_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{"Email: " + poster.pet.owner.emailAddress}'
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/owner_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.owner.name}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/owner_phone_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Phone: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/owner_contact_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.owner.contactNumber}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/owner_email_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Email: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/owner_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.owner.emailAddress}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                </GridLayout>
 
                 <TextView
                     android:id="@+id/description"
-                    android:layout_width="385dp"
-                    android:layout_height="118dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:background="@drawable/round_corner_description"
+                    android:hint="Description..."
                     android:text='@{poster.description}'
                     android:textColor="#000000"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/editButton"
