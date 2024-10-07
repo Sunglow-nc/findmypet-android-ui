@@ -71,6 +71,9 @@ public class AddPosterClickHandler {
             Toast.makeText(context, "Name must be 2 characters or more", Toast.LENGTH_SHORT).show();
         } else if (selectedLocation == null) {
             Toast.makeText(context, "Please select the location your pet was last seen", Toast.LENGTH_SHORT).show();
+        } else if (pet.getImageURL() == null || pet.getImageURL().isEmpty()) {
+            Toast.makeText(context, "Please upload an image", Toast.LENGTH_SHORT).show();
+
         }else if (poster.getDescription() == null || pet.getColour() == null || pet.getAge() == null
                     || pet.getLostDate() == null || pet.getType() == null || owner.getContactNumber() == null) {
                 Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
@@ -88,6 +91,11 @@ public class AddPosterClickHandler {
                 navController.navigate(R.id.action_add_poster_to_home);
             }
         }
+
+    public void onCancelButtonClicked(View view){
+        navController = Navigation.findNavController(view);
+        navController.navigate(R.id.action_add_poster_to_home);
+    }
 
     public void mapClick (GoogleMap mapFragment){
         mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
