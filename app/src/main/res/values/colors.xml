@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transpwhite">#A4FFFFFF</color>
     <color name="ltgrey">#979797</color>
+    <color name="pale_yellow">#EEF0C2</color>
 </resources>
