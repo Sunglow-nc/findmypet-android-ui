@@ -35,8 +35,8 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:layout_width="216dp"
-                    android:layout_height="207dp"
+                    android:layout_width="315dp"
+                    android:layout_height="220dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"
                     app:imageUrl="@{poster.pet.imageURL}"
@@ -48,7 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/round_corner"
-                    android:hint="Title..."
+                    tools:hint="Title..."
+                    android:paddingBottom="10dp"
                     android:text='@{poster.title}'
                     android:textAlignment="center"
                     android:textColor="@color/design_default_color_primary_dark"
@@ -67,6 +68,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Name: "
                         android:textColor="#4949F4"
@@ -78,6 +80,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.name}'
                         android:textColor="#000000"
@@ -88,6 +91,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Type: "
                         android:textColor="#4949F4"
@@ -99,6 +103,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.type}'
                         android:textColor="#000000"
@@ -109,6 +114,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Age: "
                         android:textColor="#4949F4"
@@ -120,6 +126,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.age}'
                         android:textColor="#000000"
@@ -130,6 +137,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Colour: "
                         android:textColor="#4949F4"
@@ -141,6 +149,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.colour}'
                         android:textColor="#000000"
@@ -151,6 +160,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Lost Date: "
                         android:textColor="#4949F4"
@@ -162,6 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.lostDate}'
                         android:textColor="#000000"
@@ -192,6 +203,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Owner: "
                         android:textColor="#4949F4"
@@ -203,6 +215,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.owner.name}'
                         android:textColor="#000000"
@@ -213,6 +226,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Phone: "
                         android:textColor="#4949F4"
@@ -224,6 +238,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.owner.contactNumber}'
                         android:textColor="#000000"
@@ -234,6 +249,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text="Email: "
                         android:textColor="#4949F4"
@@ -245,6 +261,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
+                        android:paddingStart="15dp"
                         android:padding="8dp"
                         android:text='@{poster.pet.owner.emailAddress}'
                         android:textColor="#000000"
@@ -257,11 +274,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginStart="15dp"
                     android:background="@drawable/round_corner_description"
                     android:hint="Description..."
+                    android:paddingTop="15dp"
                     android:text='@{poster.description}'
                     android:textColor="#000000"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/design_default_color_primary_dark"
+                    android:text='@{poster.pet.name + " was last seen here:"}'/>
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp" />
 
                 <Button
                     android:id="@+id/editButton"

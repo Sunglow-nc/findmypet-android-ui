@@ -22,8 +22,14 @@ import com.example.findmypet_android_ui.databinding.FragmentDetailsPageBinding;
 import com.example.findmypet_android_ui.model.Owner;
 import com.example.findmypet_android_ui.model.Pet;
 import com.example.findmypet_android_ui.model.Poster;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class DetailsPage extends Fragment {
+public class DetailsPage extends Fragment implements OnMapReadyCallback {
 
     private DetailsPageViewModel mViewModel;
 
@@ -33,10 +39,9 @@ public class DetailsPage extends Fragment {
 
     private Context context;
     private Poster poster;
-    private Pet pet;
-    private Owner owner;
     private Button editButton;
     private View view;
+    private GoogleMap mapFragment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -45,36 +50,30 @@ public class DetailsPage extends Fragment {
         mViewModel = new ViewModelProvider(this).get(DetailsPageViewModel.class);
         view = binding.getRoot();
 
-//        if (getArguments() != null) {
-//            FragmentArg
-//        }
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         assert getArguments() != null;
         poster = getArguments().getParcelable("poster");
         binding.setPoster(poster);
 
-//        assert poster != null;
-//        DetailsPageClickHandler clickHandlers = new DetailsPageClickHandler(getContext(), poster, poster.getPet(), poster.getPet().getOwner(), mViewModel);
-//        binding.setClickHandler(clickHandlers);
         editButton = view.findViewById(R.id.editButton);
         onEditButtonClicked();
 
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(DetailsPageViewModel.class);
-        // TODO: Use the ViewModel
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        mViewModel = new ViewModelProvider(this).get(DetailsPageViewModel.class);
+//        // TODO: Use the ViewModel
+//    }
 
 
     public void onEditButtonClicked() {
-//        Intent intent = new Intent(context, EditPosterActivity.class);
-//
-//        intent.putExtra("poster", poster);
-//        context.startActivity(intent);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,4 +87,11 @@ public class DetailsPage extends Fragment {
 
     }
 
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mapFragment = googleMap;
+        LatLng location = new LatLng(poster.getPet().getLatitude(), poster.getPet().getLongitude());
+        mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
+        mapFragment.addMarker(new MarkerOptions().position(location).title(poster.getPet().getName()));
+    }
 }
