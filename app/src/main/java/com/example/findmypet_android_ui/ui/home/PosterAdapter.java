@@ -12,6 +12,7 @@ import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.PosterLayoutBinding;
 import com.example.findmypet_android_ui.model.Poster;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterViewHolder> {
@@ -45,6 +46,11 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
     @Override
     public int getItemCount() {
         return posterList.size();
+    }
+
+    public void setFilteredList(ArrayList<Poster> filteredList) {
+        this.posterList = filteredList;
+        notifyDataSetChanged();
     }
 
     public static class PosterViewHolder extends RecyclerView.ViewHolder{

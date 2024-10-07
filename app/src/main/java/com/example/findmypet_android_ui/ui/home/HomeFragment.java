@@ -4,9 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,7 +27,7 @@ import com.example.findmypet_android_ui.model.Poster;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, RecyclerViewInterface{
+public class HomeFragment extends Fragment implements View.OnClickListener, RecyclerViewInterface, AdapterView.OnItemSelectedListener {
 
     private FragmentHomeBinding binding;
     private View view;
@@ -31,6 +37,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
     private List<Poster> posters;
     private RecyclerView recyclerView;
     private PosterAdapter posterAdapter;
+    private Spinner spinner;
+    private String spinnerSelection;
+    private SearchView searchView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +50,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
         view = binding.getRoot();
         mapViewButton = view.findViewById(R.id.mapview_button);
         mapViewButton.setOnClickListener(this);
+
+        spinner = view.findViewById(R.id.dropdown);
+        spinner.setOnItemSelectedListener(this);
+        String[] dropItems = getResources().getStringArray(R.array.filter_items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, dropItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        searchView = view.findViewById(R.id.search_bar);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                return true;
+            }
+        });
+
         getAllPosters();
         return view;
     }
@@ -75,6 +108,57 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         posterAdapter.notifyDataSetChanged();
+    }
+
+    private void filterList(String s) {
+        ArrayList<Poster> filteredList = new ArrayList<>();
+        for (Poster poster : posters) {
+            switch (spinnerSelection) {
+                case "All": {
+                    if (poster.getDatePosted().toLowerCase().contains(s.toLowerCase()) ||
+                            poster.getDescription().toLowerCase().contains(s.toLowerCase()) ||
+                            poster.getTitle().toLowerCase().contains(s.toLowerCase()) ||
+                            poster.getPet().getName().toLowerCase().contains(s.toLowerCase()))
+                    {
+                        if (!filteredList.contains(poster)) {
+                            filteredList.add(poster);
+                        }
+                    }
+                    break;
+                }
+                case "Colour": {
+                    if (poster.getPet().getColour().toLowerCase().contains(s.toLowerCase())) {
+                        if (!filteredList.contains(poster)) {
+                            filteredList.add(poster);
+                        }
+                    }
+                    break;
+                }
+                case "Type": {
+                    if (poster.getPet().getType().toLowerCase().contains(s.toLowerCase())) {
+                        if (!filteredList.contains(poster)) {
+                            filteredList.add(poster);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(view.getContext(), "No posters found", Toast.LENGTH_SHORT).show();
+        }
+        posterAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        spinnerSelection = parent.getItemAtPosition(position).toString();
+        Toast.makeText(getContext(), "Selected: " + spinnerSelection, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     @Override

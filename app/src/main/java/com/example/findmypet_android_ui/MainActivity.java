@@ -3,10 +3,14 @@ package com.example.findmypet_android_ui;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.findmypet_android_ui.model.Poster;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,6 +19,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.findmypet_android_ui.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
