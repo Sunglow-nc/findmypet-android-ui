@@ -175,26 +175,14 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-        LocationRequest locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
-                .setMinUpdateIntervalMillis(5000)
-                .setWaitForAccurateLocation(false)
-                .build();
-
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    if (map != null) {
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        if (map != null) {
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
+                        }
                     }
-                }
-            }
-        };
-
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+                });
     }
 }
