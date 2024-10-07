@@ -4,136 +4,276 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="poster"
             type="com.example.findmypet_android_ui.model.Poster" />
+
         <variable
             name="pet"
             type="com.example.findmypet_android_ui.model.Pet" />
+
         <variable
             name="owner"
             type="com.example.findmypet_android_ui.model.Owner" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.postDetails.PosterViewModel">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="227dp"
-            android:layout_height="212dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="5dp"
-            app:imageUrl="@{poster.pet.imageURL}"
-            app:layout_constraintEnd_toStartOf="@+id/contact_number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+        <com.example.findmypet_android_ui.ui.util.CustomScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="268dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="102dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="84dp"
-            android:hint="title..."
-            android:text="@{poster.title}"
-            android:textAlignment="textStart"
-            android:textColor="#DC1E47"
-            android:textSize="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <TextView
-            android:id="@+id/pet_name"
-            android:layout_width="162dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="112dp"
-            android:layout_marginEnd="21dp"
-            android:hint="pet name"
-            android:text="@{poster.pet.name}"
-            android:textAlignment="textStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="216dp"
+                    android:layout_height="207dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"
+                    app:imageUrl="@{poster.pet.imageURL}"
+                    tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/contact_number"
-            android:layout_width="163dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="12dp"
-            android:hint="Contact number"
-            android:text="@{poster.pet.owner.contactNumber}"
-            android:textAlignment="textStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/pet_name" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/round_corner"
+                    android:hint="Title..."
+                    android:text='@{poster.title}'
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_primary_dark"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="126dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            android:text="@{poster.pet.lostDate}"
-            android:hint="lost date"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:columnCount="2"
+                    android:rowCount="5">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="153dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:hint="pet type"
-            android:text="@{poster.pet.type}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/pet_name" />
+                    <TextView
+                        android:id="@+id/pet_name_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Name: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/pet_age"
-            android:layout_width="108dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="83dp"
-            android:text="@{`` + poster.pet.age}"
-            android:hint="pet age"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+                    <TextView
+                        android:id="@+id/pet_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.name}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="305dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="12dp"
+                    <TextView
+                        android:id="@+id/pet_type_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Type: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/pet_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.type}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
 
+                    <TextView
+                        android:id="@+id/pet_age_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Age: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pet_age"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.age}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/pet_colour_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Colour: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pet_colour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.colour}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/lost_date_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Lost Date: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lost_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.lostDate}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                </GridLayout>
+
+                <TextView
+                    android:id="@+id/owner_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Owner Information"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_primary_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:columnCount="2"
+                    android:rowCount="3">
+
+                    <TextView
+                        android:id="@+id/owner_name_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Owner: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/owner_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.owner.name}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/owner_phone_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Phone: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/owner_contact_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.owner.contactNumber}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/owner_email_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text="Email: "
+                        android:textColor="#4949F4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/owner_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:padding="8dp"
+                        android:text='@{poster.pet.owner.emailAddress}'
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                </GridLayout>
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/round_corner_description"
+                    android:hint="Description..."
+                    android:text='@{poster.description}'
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:text="Edit"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </com.example.findmypet_android_ui.ui.util.CustomScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
