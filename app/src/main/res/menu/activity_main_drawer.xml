@@ -13,7 +13,7 @@
             android:icon="@drawable/megaphone"
             android:title="@string/report_lost_pet" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_aboutus"
             android:icon="@android:drawable/ic_dialog_info"
             android:title="@string/about_us" />
     </group>
