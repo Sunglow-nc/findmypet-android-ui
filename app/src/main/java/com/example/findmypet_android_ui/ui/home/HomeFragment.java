@@ -1,9 +1,11 @@
 package com.example.findmypet_android_ui.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,7 @@ import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentHomeBinding;
 import com.example.findmypet_android_ui.model.Poster;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, RecyclerViewInterface, AdapterView.OnItemSelectedListener {
@@ -43,11 +46,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        viewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         view = binding.getRoot();
+
         mapViewButton = view.findViewById(R.id.mapview_button);
         mapViewButton.setOnClickListener(this);
 
@@ -74,9 +76,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
             }
         });
 
+        searchView.setOnQueryTextFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) {
+                searchView.setIconified(false);
+            }
+        });
+
+        searchView.setOnClickListener(v -> {
+            searchView.setIconified(false);
+            searchView.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
         getAllPosters();
         return view;
     }
+
 
     @Override
     public void onDestroyView() {
