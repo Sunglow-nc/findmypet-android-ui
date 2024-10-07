@@ -92,6 +92,11 @@ public class AddPosterClickHandler {
             }
         }
 
+    public void onCancelButtonClicked(View view){
+        navController = Navigation.findNavController(view);
+        navController.navigate(R.id.action_add_poster_to_home);
+    }
+
     public void mapClick (GoogleMap mapFragment){
         mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
