@@ -14,8 +14,8 @@ import androidx.navigation.Navigation;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,20 +24,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
-import androidx.core.content.ContextCompat;
 import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentMapsBinding;
 import com.example.findmypet_android_ui.model.Poster;
-import com.example.findmypet_android_ui.ui.home.HomeViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,7 +56,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private FusedLocationProviderClient fusedLocationClient;
     private LatLng userLocation;
-    private LocationManager locationManager;
+    private LocationCallback locationCallback;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -174,22 +174,27 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        fusedLocationClient.getLastLocation()
-                .addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            Location location = task.getResult();
-                            double latitude = location.getLatitude();
-                            double longitude = location.getLongitude();
-                            userLocation = new LatLng(latitude, longitude);
-                            if (map != null) {
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Unable to get location", Toast.LENGTH_SHORT).show();
-                        }
+
+        LocationRequest locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
+                .setMinUpdateIntervalMillis(5000)
+                .setWaitForAccurateLocation(false)
+                .build();
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    if (map != null) {
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
                     }
-                });
+                }
+            }
+        };
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
     }
 }
