@@ -69,4 +69,9 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
         }
     }
 
+    public Poster getPosterAtPosition(int position) {
+        return posterList.get(position); // 'posters' is the list being managed by the adapter (filtered or original)
+    }
+
+
 }
