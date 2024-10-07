@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
     private Spinner spinner;
     private String spinnerSelection;
     private SearchView searchView;
+    private ArrayList<Poster> filteredList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -129,7 +131,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
     }
 
     private void filterList(String s) {
-        ArrayList<Poster> filteredList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         for (Poster poster : posters) {
             switch (spinnerSelection) {
                 case "All": {
@@ -191,11 +193,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
 //        startActivity(intent);
 //        HomeFragmentDirections.ActionDetailPage action = HomeFragmentDirections.actionDetailPage(poster);
 
-
         Bundle bundle = new Bundle();
-        bundle.putParcelable("poster", posters.get(position));
-
-
+        if(filteredList == null || filteredList.isEmpty()){
+            bundle.putParcelable("poster", posters.get(position));
+        } else {
+            bundle.putParcelable("poster", filteredList.get(position));
+            spinner.setSelection(0);
+            filteredList = null;
+        }
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_detail_page, bundle);
     }
