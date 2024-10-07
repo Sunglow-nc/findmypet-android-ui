@@ -261,6 +261,18 @@
                     android:layout_marginTop="15dp"
                     android:onClick="@{clickHandler::onSubmitButtonClicked}" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_style"
+                    android:onClick="@{clickHandler::onCancelButtonClicked}"/>
+
             </LinearLayout>
         </com.example.findmypet_android_ui.ui.util.CustomScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
