@@ -53,6 +53,7 @@
             android:background="@drawable/search_box_background"
             android:text="@string/filter_posters"
             android:queryHint="Search posters"
+            app:iconifiedByDefault="false"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.904"
