@@ -43,6 +43,11 @@ public class UpdatePosterClickHandlers {
         this.owner = owner;
         this.context = context;
         this.viewModel = viewModel;
+        try {
+            selectedLocation = new LatLng(pet.getLongitude(), pet.getLatitude());
+        } catch (Exception e) {
+            Log.e("location", e.getMessage());
+        }
     }
 
     public void onSaveButtonClicked(View view) {
@@ -58,8 +63,8 @@ public class UpdatePosterClickHandlers {
                 pet.getColour(),
                 Long.parseLong(pet.getAge()),
                 pet.getFound(),
-                pet.getLongitude(),
-                pet.getLatitude(),
+                selectedLocation.longitude,
+                selectedLocation.latitude,
                 pet.getImageURL(),
                 pet.getLostDate(),
                 pet.getType(),
