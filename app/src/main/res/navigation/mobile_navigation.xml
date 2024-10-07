@@ -49,6 +49,7 @@
 
     <fragment
         android:id="@+id/nav_update_poster"
+        android:label="Update Poster"
         android:name="com.example.findmypet_android_ui.ui.updateposter.UpdatePosterFragment">
         <action
             android:id="@+id/action_update_to_home"
@@ -61,6 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_details_page"
+        android:label="Lost Pet Details"
         android:name="com.example.findmypet_android_ui.ui.details.DetailsPage">
     <argument
         android:name="poster"
