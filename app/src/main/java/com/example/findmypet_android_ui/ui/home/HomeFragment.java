@@ -183,26 +183,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Recy
 
     @Override
     public void onItemClick(int position) {
-//        Intent intent = new Intent(getActivity(), PosterDetailsActivity.class);
-//        intent.putExtra("title", poster.getTitle());
-//        intent.putExtra("petName", poster.getPet().getName());
-//        intent.putExtra("contactNumber", poster.getPet().getOwner().getContactNumber());
-//        intent.putExtra("type", poster.getPet().getType());
-//        intent.putExtra("lostDate", poster.getPet().getLostDate());
-
-//        startActivity(intent);
-//        HomeFragmentDirections.ActionDetailPage action = HomeFragmentDirections.actionDetailPage(poster);
+        Poster selectedPoster = posterAdapter.getPosterAtPosition(position);
 
         Bundle bundle = new Bundle();
-        if(filteredList == null || filteredList.isEmpty()){
-            bundle.putParcelable("poster", posters.get(position));
-        } else {
-            bundle.putParcelable("poster", filteredList.get(position));
-            spinner.setSelection(0);
-            filteredList = null;
-        }
+        bundle.putParcelable("poster", selectedPoster);
+
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_detail_page, bundle);
     }
+
+
 
 }
