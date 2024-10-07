@@ -1,6 +1,8 @@
 package com.example.findmypet_android_ui.ui.addposter;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +30,9 @@ import com.example.findmypet_android_ui.model.Poster;
 import com.example.findmypet_android_ui.service.PosterApiService;
 import com.example.findmypet_android_ui.service.RetrofitInstance;
 import com.example.findmypet_android_ui.ui.home.HomeFragment;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -54,6 +61,27 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
     private Pet pet;
     private Owner owner;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+    private FusedLocationProviderClient fusedLocationClient;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // set up location access before view is created
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                // Permission is granted
+                accessUserLocation();
+            } else {
+                // Permission is denied
+                Toast.makeText(getContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Nullable
     @Override
@@ -76,6 +104,13 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
         binding.setPet(pet);
         binding.setOwner(owner);
         binding.setClickHandler(clickHandler);
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermission();
+        } else {
+            accessUserLocation();
+        }
 
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -106,11 +141,14 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapFragment = googleMap;
+        LatLng defaultLocation = new LatLng(54.607868, -2.021308);
+        mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 6));
 
-        // TODO: nice to have: set default location - users current location IF location permission set up
-        // LatLng defaultLocation = new LatLng(-34, 151);
-        // mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
-        clickHandler.mapClick(mapFragment);
+        selectedLocation = clickHandler.mapClick(mapFragment);
+
+        if (selectedLocation != null) {
+            mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 10));
+        }
     }
 
 
@@ -211,6 +249,26 @@ public class AddPosterFragment extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
             Toast.makeText(getContext(), "Failed to read image data", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void requestLocationPermission(){
+        requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    public void accessUserLocation(){
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        if (mapFragment != null) {
+                            mapFragment.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 10));
+                        }
+                    }
+                });
     }
 
 }

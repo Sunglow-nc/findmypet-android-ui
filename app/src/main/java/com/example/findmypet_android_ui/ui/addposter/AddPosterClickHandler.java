@@ -97,7 +97,7 @@ public class AddPosterClickHandler {
         navController.navigate(R.id.action_add_poster_to_home);
     }
 
-    public void mapClick (GoogleMap mapFragment){
+    public LatLng mapClick (GoogleMap mapFragment){
         mapFragment.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -115,5 +115,6 @@ public class AddPosterClickHandler {
                 }
             }
         });
+        return selectedLocation;
     }
 }
