@@ -25,6 +25,7 @@ import com.example.findmypet_android_ui.R;
 import com.example.findmypet_android_ui.databinding.FragmentHomeBinding;
 import com.example.findmypet_android_ui.model.Poster;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, RecyclerViewInterface, AdapterView.OnItemSelectedListener {
