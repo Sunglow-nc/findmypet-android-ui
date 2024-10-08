@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_mapView_to_listview"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_mapView_to_detailspage"
+            app:destination="@id/nav_details_page" />
     </fragment>
 
     <fragment
