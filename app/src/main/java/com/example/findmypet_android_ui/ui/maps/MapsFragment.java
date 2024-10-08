@@ -32,11 +32,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class MapsFragment extends Fragment implements View.OnClickListener {
+public class MapsFragment extends Fragment implements View.OnClickListener, GoogleMap.OnMarkerClickListener ,
+        GoogleMap.OnInfoWindowClickListener {
 
     private View view;
     private Button listViewButton;
@@ -48,6 +51,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private FusedLocationProviderClient fusedLocationClient;
     private LatLng userLocation;
+    private HashMap<Marker, Poster> posterLocationMap = new HashMap<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,8 +156,13 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         if(posters != null) {
             for (Poster poster : posters) {
                 LatLng posterLocation = new LatLng(poster.getPet().getLatitude(), poster.getPet().getLongitude());
-                map.addMarker(new MarkerOptions().position(posterLocation).title(poster.getTitle()));
+                Marker marker = map.addMarker(new MarkerOptions().position(posterLocation).title(poster.getTitle()));
+                if(marker != null){
+                    posterLocationMap.put(marker, poster);
+                }
             }
+            map.setOnMarkerClickListener(this);
+            map.setOnInfoWindowClickListener(MapsFragment.this);
         }
     }
 
@@ -175,5 +184,23 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        marker.showInfoWindow();
+        return true;
+    }
+
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        Poster poster = posterLocationMap.get(marker);
+        if(poster != null){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("poster", poster);
+
+            navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_mapView_to_detailspage, bundle);
+        }
     }
 }
