@@ -44,7 +44,7 @@ public class UpdatePosterClickHandlers {
         this.context = context;
         this.viewModel = viewModel;
         try {
-            selectedLocation = new LatLng(pet.getLongitude(), pet.getLatitude());
+            selectedLocation = new LatLng(pet.getLatitude(), pet.getLongitude());
         } catch (Exception e) {
             Log.e("location", e.getMessage());
         }
