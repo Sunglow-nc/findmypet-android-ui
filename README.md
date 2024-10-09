@@ -79,6 +79,8 @@ and testing purposes:
 
 Demo video:
 
+<img src="gif1.gif" width="300">
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Future implementations
