@@ -25,8 +25,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#futureimplementations">Future Implementations</a></li>
+    <li><a href="#future-implementations">Future Implementations</a></li>
     <li><a href="#authors">Authors</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -79,10 +78,6 @@ and testing purposes:
 ## Usage
 
 Demo video:
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Roadmap
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
