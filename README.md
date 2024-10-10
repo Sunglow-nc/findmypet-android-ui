@@ -36,6 +36,8 @@
 Find My Pet is an Android mobile application where you can report your lost pet. If other people find your lost pet, they can contact you. Alternatively, you can be the one to make someone's day brigther by finding their pet!
 The following GitHub repository holds the front-end part of the application built in Android Studio.
 
+[Backend Link](https://github.com/Sunglow-nc/find-my-pet-api) for the API service.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
